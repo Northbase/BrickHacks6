@@ -1,0 +1,11 @@
+{
+	"name": "brickhacks6",
+	"version": "1.0.0",
+	"description": "Quotebook web app",
+	"main": "index.js",
+	"scripts": {
+		"start": "cd server && npm install && node server.js"
+	},
+	"author": "",
+	"license": "ISC"
+}
