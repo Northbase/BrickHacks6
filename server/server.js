@@ -25,6 +25,7 @@ app.use(cors());
 
 // Routes
 app.use('/api/quotes', require('./routes/api/quotes'));
+app.use('/api/test', require('./routes/api/test'));
 
 // App
 app.listen(port, () => {

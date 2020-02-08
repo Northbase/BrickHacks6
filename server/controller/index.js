@@ -5,7 +5,7 @@ const EmptyHead = require('../model/EmptyHead');
 // @desc load model to DB
 // @request GET
 // @return collection of DB
-exports.getTest = async (req, res, next) => {
+exports.getQuotes = async (req, res, next) => {
 	try {
 		const collection = await EmptyHead.find();
 		res.status(200).json(collection);
@@ -17,7 +17,7 @@ exports.getTest = async (req, res, next) => {
 // @desc save model to DB
 // @reqeust GET
 // @return collecetion of DB
-exports.saveTest = async (req, res, next) => {
+exports.addQuotes = async (req, res, next) => {
 	try {
 		console.log(req.body);
 		const { name, quote } = req.body;
@@ -28,6 +28,15 @@ exports.saveTest = async (req, res, next) => {
 		await newEmptyHead.save();
 		const collection = await EmptyHead.find();
 		res.status(200).json(collection);
+	} catch (err) {
+		console.log(err);
+		res.status(500).json('something went wrong');
+	}
+};
+
+exports.test = async (req, res, next) => {
+	try {
+		res.send('hello, world!');
 	} catch (err) {
 		console.log(err);
 		res.status(500).json('something went wrong');
