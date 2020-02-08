@@ -17,7 +17,7 @@ mongoose
 		useNewUrlParser: true
 	})
 	.then(res => console.log('connected to DB'))
-	.catch(res => console.log('nope'));
+	.catch(res => console.log('connection to DB failed'));
 
 // Middlewares
 app.use(express.json());

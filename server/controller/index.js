@@ -7,7 +7,9 @@ const EmptyHead = require('../model/EmptyHead');
 // @return collection of DB
 exports.getQuotes = async (req, res, next) => {
 	try {
+		console.log('finding....');
 		const collection = await EmptyHead.find();
+		console.log('found');
 		res.status(200).json(collection);
 	} catch (err) {
 		res.status(500).json('something went wrong!');
