@@ -4,8 +4,13 @@
 	"description": "Quotebook web app",
 	"main": "index.js",
 	"scripts": {
-		"start": "cd server && npm install && node server.js"
+		"dev": "concurrently \"npm run dev --prefix server\" \"npm start --prefix client\"",
+		"start": "cd server && npm install && node server.js",
+		"heroku-postbuild": "cd client && npm install && npm run build"
 	},
 	"author": "",
-	"license": "ISC"
+	"license": "ISC",
+	"devDependencies": {
+		"concurrently": "^5.1.0"
+	}
 }

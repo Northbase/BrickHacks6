@@ -1,8 +1,20 @@
 const mongoose = require('mongoose');
 
 const NameCardSchema = new mongoose.Schema({
-	name: String,
-	quote: String
+	origin: {
+		type: String,
+		default: 'jokester'
+	},
+	names: [
+		{
+			type: String
+		}
+	],
+	quotes: [
+		{
+			type: String
+		}
+	]
 });
 
 // save the scheme to 'emptyheads'
