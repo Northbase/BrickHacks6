@@ -1,0 +1,18 @@
+.navbar {
+	/* position: fixed; */
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	background-color: rgb(36, 18, 44);
+	width: 100vw;
+	height: 10vh;
+}
+
+.navbar li {
+	list-style: none;
+}
+
+.navbar li a {
+	text-decoration: none;
+	color: white;
+}

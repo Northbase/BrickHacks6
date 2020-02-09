@@ -1,10 +1,14 @@
 import React from 'react';
-import Quotes from './components/Quotes';
+import Navbar from './components/Navbar';
+// import Quotes from './components/Quotes';
+// import Home from './components/Home';
 
 function App() {
 	return (
 		<div className='App'>
-			<Quotes />
+			<Navbar />
+			{/* <Home /> */}
+			{/* <Quotes /> */}
 		</div>
 	);
 }

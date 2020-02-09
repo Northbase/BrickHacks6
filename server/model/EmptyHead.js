@@ -7,14 +7,20 @@ const NameCardSchema = new mongoose.Schema({
 	},
 	names: [
 		{
-			type: String
+			type: String,
+			default: 'jokester'
 		}
 	],
 	quotes: [
 		{
-			type: String
+			type: String,
+			default: '...'
 		}
-	]
+	],
+	time: {
+		type: Date,
+		default: Date.now()
+	}
 });
 
 // save the scheme to 'emptyheads'
