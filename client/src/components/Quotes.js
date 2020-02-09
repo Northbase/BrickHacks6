@@ -30,12 +30,16 @@ class Quotes extends Component {
 
 	// send GET request to the server
 	getQuotes = async () => {
-		const Quotes = await axios({
-			method: 'get',
-			url: `/api/quotes`
-		});
-		console.log(Quotes.data);
-		await this.setState({ quotes: [...Quotes.data] });
+		try {
+			const Quotes = await axios({
+				method: 'get',
+				url: `/api/quotes`
+			});
+			console.log(Quotes.data);
+			await this.setState({ quotes: [...Quotes.data] });
+		} catch (err) {
+			consnole.log('getquotes failed');
+		}
 	};
 
 	// Lifecycle methods
