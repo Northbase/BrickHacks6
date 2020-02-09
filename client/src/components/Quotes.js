@@ -38,7 +38,7 @@ class Quotes extends Component {
 			console.log(Quotes.data);
 			await this.setState({ quotes: [...Quotes.data] });
 		} catch (err) {
-			consnole.log('getquotes failed');
+			console.log('getquotes failed');
 		}
 	};
 
