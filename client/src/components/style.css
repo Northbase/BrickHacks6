@@ -1,0 +1,150 @@
+*{
+  margin:0;
+  padding:0;
+  font-family: lato;
+}
+
+.censor{
+  background-color: lightblue;
+  width:100vw;
+  height: 100vh;
+  position: fixed;
+  top:0;
+  z-index: 2;
+}
+
+.censor h1{
+  width: 80vw;
+  padding-top: 5vh;
+  padding-left: 5vw;
+  padding-right: 5vw;
+}
+
+.delete{
+  color: red;
+}
+
+.toggleButton{
+  background-color: yellow;
+  width: 50vw;
+  height: 10vh;
+  padding: 3vw;
+  margin: 3vh;
+  margin-left: 25vw;
+  margin-right: 25vw;
+  margin-top: 40vh;
+  font-size: 2em;
+  text-align: center;
+  box-shadow: 10px 10px;
+
+}
+
+.header{
+  background-color: rgb(212, 82, 205);
+  height:10vh;
+  position: fixed;
+  z-index: 1;
+  width: 100vw;
+  color: white;
+  text-align: center;
+  padding-top: 3vh;
+  padding-bottom: 3vh;
+  font-size: 1em;
+  box-shadow: 0px 5px black;
+}
+
+.header h1{
+  
+  font-family:cursive;
+  padding-bottom: 1vh;
+  
+}
+
+body{
+  
+  background: radial-gradient(black 15%, transparent 16%) 0 0,
+  radial-gradient(black 15%, transparent 16%) 8px 8px,
+  radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
+  radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
+  background-size: 16px 16px;
+  background-color: rgb(199, 199, 199);
+}
+
+
+img{
+  width: 30vw;
+  position: relative;
+  float: right;
+}
+
+.individualQuote{ 
+  position: relative;
+  top: 20vh;
+  width: 70vw;
+  padding: 5vh;
+  padding-bottom: 3vh;
+  padding-left: 10vw;
+  padding-right: 10vw;
+  margin-bottom: 5vh;
+  margin-left: 5vw;
+  margin-right: 5vw;
+  background-color: white;
+  box-shadow: 10px 10px;
+ 
+}
+
+
+.btn{
+  color: black;
+  font-size: 3em;
+  position: fixed;
+  bottom: 1vh;
+  width: 15vw;
+  height:15vw;
+  right: 45vw;
+  left: 45vw;
+  background-color: rgb(212, 82, 205);
+  border-radius: 50%;
+  text-align: center;
+  box-shadow: 3px 3px;
+}
+
+.btn p{
+  margin:0;
+  padding:0;
+  position: absolute;
+  width: 15vw;
+  height: 15vw;
+  bottom: 0.5vh;
+  color: white;
+}
+
+.edge{
+  margin-top: 5vw;
+  margin-bottom: 5vw;
+}
+
+.add-plate{
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(212, 82, 205, 0.37);
+  position: fixed;
+  top:0;
+}
+
+.add-form{
+  position: absolute;
+  bottom: 25vh;
+  right: 10vw;
+  background-color: white;
+  width: 75vw;
+  height: 50vh;
+  box-shadow: 10px 10px;
+}
+
+.add-form h2{
+  padding-left: 5vw;
+  padding-top:2vh;
+}
+
+
