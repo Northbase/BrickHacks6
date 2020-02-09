@@ -14,7 +14,7 @@ class QuotesContainer extends Component {
 	switcharoo = () => {
 		var chara = this.state.symbol;
 		var canSee = this.state.visible;
-		if (chara == '+') {
+		if (chara === '+') {
 			chara = '×';
 			canSee = 'visible';
 		} else {

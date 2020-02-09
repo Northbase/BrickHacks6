@@ -16,9 +16,24 @@ class QuotesContainer extends Component {
 		this.getQuotes();
 	}
 
-	componentWillUpdate() {
-		this.getQuotes();
-	}
+	// componentWillUpdate() {
+	// this.setState({ quotes: [] });
+	// this.getQuotes();
+	// }
+
+	removeQuote = async e => {
+		// console.log(e.target);
+		await axios({
+			method: 'delete',
+			// url: `http://localhost:5000/api/quotes/delete/${e.target.id}`,
+			url: `/api/quotes`,
+			data: {
+				params: e.target.id
+			}
+		});
+
+		await this.getQuotes();
+	};
 
 	getQuotes = async () => {
 		const Quotes = await axios({
@@ -39,13 +54,15 @@ class QuotesContainer extends Component {
 	}
 
 	render() {
+		let boxQuote_key;
 		var quotebox = this.state.quotes.map(entry => {
 			var output = [];
 			var num = entry.names.length;
+			boxQuote_key = entry._id;
 
 			for (var i = 0; i < num; i++) {
 				//going through index of every name
-
+				console.log(entry);
 				output.push(
 					<div className='utterance'>
 						<h3 className='name'> {this.scramble(entry.names[i])}: </h3>
@@ -53,12 +70,13 @@ class QuotesContainer extends Component {
 					</div>
 				);
 			}
-
 			return (
-				<div className='individualQuote'>
+				<div className='individualQuote' key={boxQuote_key}>
 					{output}
 					<hr className='edge' />
-					<div className='delete'>Delete</div>
+					<div className='delete' id={boxQuote_key} onClick={this.removeQuote}>
+						Delete
+					</div>
 				</div>
 			);
 		});

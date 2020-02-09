@@ -35,17 +35,31 @@ exports.addQuotes = async (req, res, next) => {
 	}
 };
 
+// @desc delete target entry
+// @reqeust DELTE
+// @return collecetion of DB
+exports.deleteQuote = async (req, res, next) => {
+	try {
+		// console.log(req);
+		// const { target } = req.body;
+		// console.log(req.params);
+		const { target } = req.params;
+		const targetQuotes = await EmptyHead.deleteOne({ _id: target });
+		res.status(200).json(targetQuotes);
+	} catch (err) {
+		console.log('delete quote failed');
+	}
+};
+
 // @desc search entry that contains target
 // @reqeust GET
 // @return collecetion of DB that contains target
 exports.searchQuote = async (req, res, next) => {
 	try {
 		console.log(req.body);
+		console.log(req.params);
 		const { target } = req.body;
 		const targetQuotes = await EmptyHead.find({ names: target });
-
-		// target-quote matcher
-
 		res.status(200).json(targetQuotes);
 	} catch (err) {
 		console.log(err);

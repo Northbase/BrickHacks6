@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './Home.css';
 
@@ -37,10 +36,10 @@ class Box extends Component {
 
 	handleSave = e => {
 		console.log(e.target);
-		if (e.target.value != '') {
+		if (e.target.value !== '') {
 			e.target.disabled = true;
 		}
-		if (this.state.name != '' && this.state.quote != '') {
+		if (this.state.name !== '' && this.state.quote !== '') {
 			this.props.boxTracker(this.state.name, this.state.quote);
 		}
 	};
@@ -122,8 +121,8 @@ class Home extends Component {
 		try {
 			const test = await axios({
 				method: 'post',
-				url: 'http://localhost:5000/api/quotes/add',
-				// url: '/api/quotes/add',
+				// url: 'http://localhost:5000/api/quotes/add',
+				url: '/api/quotes/add',
 				data: {
 					names: names,
 					quotes: quotes
