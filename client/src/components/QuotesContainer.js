@@ -23,7 +23,7 @@ class QuotesContainer extends Component {
 	getQuotes = async () => {
 		const Quotes = await axios({
 			method: 'get',
-			url: `http://localhost:5000/api/quotes`
+			url: `/api/quotes`
 		});
 		// console.log(Quotes.data);
 		await this.setState({ quotes: [...Quotes.data] });
