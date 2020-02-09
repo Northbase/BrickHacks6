@@ -15,7 +15,12 @@ class Box extends Component {
 
 	handleSubmit = e => {
 		e.preventDefault();
-		this.props.boxTracker(this.state.name, this.state.quote);
+		console.log(this.state.name, this.state.quote);
+		if (!this.state.names.includes('') && !this.state.quotes.includes('')) {
+			this.props.boxTracker(this.state.name, this.state.quote);
+		} else {
+			console.log('error');
+		}
 	};
 
 	handleNameChange = async e => {
@@ -31,7 +36,13 @@ class Box extends Component {
 	};
 
 	handleSave = e => {
-		this.props.boxTracker(this.state.name, this.state.quote);
+		console.log(e.target);
+		if (e.target.value != '') {
+			e.target.disabled = true;
+		}
+		if (this.state.name != '' && this.state.quote != '') {
+			this.props.boxTracker(this.state.name, this.state.quote);
+		}
 	};
 
 	render() {
@@ -52,7 +63,7 @@ class Box extends Component {
 					<input
 						type='text'
 						id='name'
-						className='inputBox'
+						className='inputBox quoteField'
 						placeholder='quote'
 						value={this.state.quote}
 						onChange={this.handleQuoteChange}
@@ -71,13 +82,14 @@ class Home extends Component {
 			boxes: [],
 			entries: [],
 			names: [],
-			quotes: []
+			quotes: [],
+			isDisabled: true,
+			status: 'save'
 		};
 	}
 
 	addBox = () => {
 		this.setState({
-			// boxes: [...this.state.boxes, <Box boxTracker={this.boxTracker} />]
 			boxes: [...this.state.boxes, <Box boxTracker={this.boxTracker} />]
 		});
 	};
@@ -90,32 +102,43 @@ class Home extends Component {
 	};
 
 	boxTracker = (name, quote) => {
-		if (name != '' && !this.state.names.includes(name)) {
-			this.setState({
-				names: [...this.state.names, name]
-			});
-		}
-		if (quote != '' && !this.state.quotes.includes(quote)) {
-			this.setState({
-				quotes: [...this.state.quotes, quote]
-			});
-		}
+		console.log(name, quote);
+		this.setState({
+			isDisabled: false
+		});
+		this.setState({
+			names: [...this.state.names, name],
+			quotes: [...this.state.quotes, quote]
+		});
 	};
 
 	handleSubmit = async () => {
 		const { names, quotes } = this.state;
+		this.state.isDisabled
+			? this.setState({ status: 'save' })
+			: this.setState({ status: 'saved' });
 
-		// filter
+		// add to DB
 		try {
 			const test = await axios({
 				method: 'post',
-				url: '/api/quotes/add',
+				url: 'http://localhost:5000/api/quotes/add',
+				// url: '/api/quotes/add',
 				data: {
 					names: names,
 					quotes: quotes
 				}
 			});
-			console.log('success');
+
+			// disable submit button
+			this.setState({
+				isDisabled: true,
+				status: 'save'
+			});
+			this.setState({
+				boxes: []
+			});
+			console.log('added data successfully');
 		} catch (err) {
 			console.log('submision failed');
 		}
@@ -128,26 +151,21 @@ class Home extends Component {
 				{/* Box */}
 				{[...boxes]}
 				<div className='buttons'>
+					{/* Remove Button */}
+					<button onClick={this.removeBox} className='Button'>
+						-
+					</button>
+					{/* Submit button */}
+					<button
+						onClick={this.handleSubmit}
+						className='saveButton'
+						disabled={this.state.isDisabled ? true : false}
+					>
+						{this.state.status}
+					</button>
 					{/* Add button */}
 					<button onClick={this.addBox} className='Button'>
 						+
-					</button>
-					{/* Submit button */}
-					{/* <Link
-						to={{
-							pathname: `/quotes`,
-							state: {
-								names: this.state.names,
-								quotes: this.state.quotes
-							}
-						}}
-						onClick={this.handleSubmit}
-					>
-						Submit
-					</Link> */}
-					<button onClick={this.handleSubmit}>Submit</button>
-					<button onClick={this.removeBox} className='Button'>
-						-
 					</button>
 				</div>
 			</div>
