@@ -110,7 +110,6 @@ class Home extends Component {
 			const test = await axios({
 				method: 'post',
 				url: '/api/quotes/add',
-				// url: '/api/quotes'
 				data: {
 					names: names,
 					quotes: quotes
