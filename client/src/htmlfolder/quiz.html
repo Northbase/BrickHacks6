@@ -1,0 +1,93 @@
+<html>
+<head>
+  <title></title>
+
+  <script>	
+	var ROUND = {nameset: ["name1", "name2", "name3", "name4"], questionset: ["question1", "question2", "question3", "question4"]};
+	
+	var points = 0;
+	var roundcount = -1;
+	var typecounter = 0;
+	
+	function addradio(buttonvalue) {
+		if(roundcount > 0)
+		{
+			typecounter++;
+			var currentradio = document.getElementById("Radio" + i);
+			currentradio.value = buttonvalue;
+			var currentoption = document.getElementById("Option" + i);
+			currentoption.innerHTML = currentradio.value;
+		}
+		else
+		{
+			var radio = document.createElement("input");
+			radio.id = "Radio" + typecounter;
+
+			radio.setAttribute("type","radio");
+			radio.value = buttonvalue;
+			radio.name = "radio";
+			
+			radiotxt = document.createElement("span");
+			radiotxt.id = "Option" + typecounter;
+			radiotxt.innerHTML = buttonvalue;
+			radiotxt.name = "option";
+			
+			typecounter++;
+			document.getElementById("answerholder").appendChild(radio);
+			document.getElementById("answerholder").appendChild(radiotxt);
+		}
+	}
+	
+	function changequestion() {
+		roundcount++;
+		//alert(roundcount);
+		var qbox = document.getElementById("question");
+		qbox.innerHTML = ROUND.questionset[roundcount];
+	}
+	
+	function changeanswers()
+	{
+		var correctanswer = ROUND.nameset[roundcount];
+		var finalpossibleanswers = new Array();
+		var shuffledanswerarray = new Array();
+		var randomshuffler = Math.floor(Math.random() * 100);
+		
+		for(i = randomshuffler; i < randomshuffler+4; i++)
+		{
+			shuffledanswerarray.push(ROUND.nameset[i%4]);
+		}
+
+		//randomshuffler = Math.floor(Math.random() * 3);
+		//var temp = finalpossibleanswers[randomshuffler];
+		//finalpossibleanswers[randomshuffler] = correctanswer;
+		//finalpossibleanswers[finalpossibleanswers.indexOf(correctanswer)] = temp;
+		
+		for(i = 0; i <= 3; i++)
+		{
+			//alert(shuffledanswerarray[i]);
+			addradio(shuffledanswerarray[i]);
+		}
+	}
+	
+	function setupquestions()
+	{
+		changequestion();
+		changeanswers();
+	}
+	
+	function compareanswer(radiobutton)
+	{
+		if(radiobutton.value.equals(ROUND[0].names))
+		{points++;}
+	}
+  </script>
+<head/>
+<body>
+
+<div id = "question">Get ready to start the game!</div>
+<div id = "answerholder">
+</div>
+
+<button onclick = "setupquestions()"> Answer! </button>
+</body>
+</html>
