@@ -87,7 +87,6 @@ class Home extends Component {
 		this.setState({
 			boxes: newBoxes
 		});
-		// console.log(newBoxes);
 	};
 
 	boxTracker = (name, quote) => {
@@ -101,10 +100,6 @@ class Home extends Component {
 				quotes: [...this.state.quotes, quote]
 			});
 		}
-		// this.setState({
-		// 	names: [...this.state.names, name],
-		// 	quotes: [...this.state.quotes, quote]
-		// });
 	};
 
 	handleSubmit = async () => {
@@ -139,7 +134,7 @@ class Home extends Component {
 						+
 					</button>
 					{/* Submit button */}
-					<Link
+					{/* <Link
 						to={{
 							pathname: `/quotes`,
 							state: {
@@ -150,7 +145,8 @@ class Home extends Component {
 						onClick={this.handleSubmit}
 					>
 						Submit
-					</Link>
+					</Link> */}
+					<button onClick={this.handleSubmit}>Submit</button>
 					<button onClick={this.removeBox} className='Button'>
 						-
 					</button>

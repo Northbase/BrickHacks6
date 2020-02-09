@@ -1,14 +1,16 @@
 import React from 'react';
 import Navbar from './components/Navbar';
-// import Quotes from './components/Quotes';
-// import Home from './components/Home';
+import Hello from './components/Hello';
+import QuotesContainer from './components/QuotesContainer';
+import AddButton from './components/AddButton';
 
 function App() {
 	return (
 		<div className='App'>
+			<Hello />
+			<QuotesContainer />
+			<AddButton />
 			<Navbar />
-			{/* <Home /> */}
-			{/* <Quotes /> */}
 		</div>
 	);
 }

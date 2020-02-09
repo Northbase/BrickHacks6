@@ -1,79 +1,71 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
+import axios from 'axios';
+
 import './style.css';
 
 class QuotesContainer extends Component {
-  constructor() {
-    super();
-    this.state = {
-       quotes: [
-         {names : ["Sidney"],
-          quote: ["I don't have a bucket list because I have no plans to die"]},  
+	constructor() {
+		super();
+		this.state = {
+			quotes: []
+		};
+	}
 
-          {names : ["Rahul", "Noelle"],
-          quote: ["Now we're one big kinky family!", "And Nick is the daddy"]},
+	componentDidMount() {
+		this.getQuotes();
+	}
 
-          {names : ["Rahul"],
-          quote: ["Bisexual livers are made of steel."]},
-          {names : ["Sidney"],
-          quote: ["I don't have a bucket list because I have no plans to die"]},  
+	componentWillUpdate() {
+		this.getQuotes();
+	}
 
-          {names : ["Rahul", "Noelle"],
-          quote: ["Now we're one big kinky family!", "And Nick is the daddy"]},
+	getQuotes = async () => {
+		const Quotes = await axios({
+			method: 'get',
+			url: `http://localhost:5000/api/quotes`
+		});
+		// console.log(Quotes.data);
+		await this.setState({ quotes: [...Quotes.data] });
+	};
 
-          {names : ["Rahul"],
-          quote: ["Bisexual livers are made of steel."]}
-       ]
-    //quotes: ["a", "b", "c"]
-    };
-  }
+	scramble(words) {
+		var patt = /[^eariotnsEARIOTNS]/g;
+		var result = words.match(patt);
 
-  componentDidMount(){
-    console.log(this.state.quotes);
-  }
+		return words;
+		// return result;
+	}
 
-  scramble(words){
-    var patt = /[^eariotnsEARIOTNS]/g;
-    var result = words.match(patt);
+	render() {
+		var quotebox = this.state.quotes.map(entry => {
+			var output = [];
+			var num = entry.names.length;
 
-    return result;
-  }
+			for (var i = 0; i < num; i++) {
+				//going through index of every name
 
-  render() {
+				output.push(
+					<div className='utterance'>
+						<h3 className='name'> {this.scramble(entry.names[i])}: </h3>
+						<p className='saying'> {this.scramble(entry.quotes[i])} </p>
+					</div>
+				);
+			}
 
-    var quotebox = this.state.quotes.map( entry => {
+			return (
+				<div className='individualQuote'>
+					{output}
+					<hr className='edge' />
+					<div className='delete' onClick=''>
+						Delete
+					</div>
+				</div>
+			);
+		});
 
-      var output = [];
-      var num = entry.names.length;
-      
-      for(var i = 0; i< num; i++){ //going through index of every name
-        
-        output.push(
-          <div className="utterance">
-            <h3 className = "name"> {this.scramble(entry.names[i])}: </h3>
-            <p className="saying"> {this.scramble(entry.quote[i])} </p>
-            
-          </div>
-        );
-      }
-
-      return ( 
-        <div className="individualQuote">
-          {output}
-          <hr className="edge"/>
-          <div className="delete" onClick="">Delete</div>
-        </div>
-        
-        )
-      } 
-    );
-
-    return (
-      <div className="quote-box">
-        {quotebox}
-      </div>
-    );
-  }
+		return <div className='quote-box'>{quotebox}</div>;
+	}
 }
 export default QuotesContainer;
-//render(<QuotesContainer/>, document.getElementById('root'));  
+//render(<QuotesContainer/>, document.getElementById('root'));
