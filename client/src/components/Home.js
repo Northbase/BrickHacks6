@@ -109,7 +109,7 @@ class Home extends Component {
 		try {
 			const test = await axios({
 				method: 'post',
-				url: 'http://localhost:5000/api/quotes/add',
+				url: '/api/quotes/add',
 				// url: '/api/quotes'
 				data: {
 					names: names,
