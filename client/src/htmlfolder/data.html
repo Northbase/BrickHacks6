@@ -1,0 +1,58 @@
+<html>
+<head>
+  <title></title>
+
+  <script>	
+	var ROUND = {nameset: ["name1", "name2", "name3", "name4"], quotelines: ["this day has been no fun", "this is no fun", "its a joke", "no u"]};
+	var possiblewords =  [];
+	var appearancearray = [];
+	var index = 0;
+
+	function countall(word) {
+		var count = 0;
+		if((possiblewords.indexOf(word) == -1))
+		{
+			possiblewords.push(word);
+		}
+		for(i = 0; i < possiblewords.length; i++)
+		{
+			if(word == possiblewords[possiblewords.indexOf(word)])
+			{
+				count++;
+			}
+		}
+		var index = possiblewords.indexOf(word);
+		appearancearray[index] += count;
+	}
+	
+	function main()
+	{
+		var compiledreport = new String;
+		for(i=0; i < possiblewords.length; i++){
+			compiledreport += possiblewords[i] + ": " + appearancearray[i] + "<br/>";}
+		document.getElementById("report").innerHTML = compiledreport;
+		alert(compiledreport);
+	}
+	
+	function splitupquotes()
+	{
+		var wordarray = ROUND.quotelines[index].split(" "); //this, is, fun
+		for(i=0; i < wordarray.length; i++){
+		appearancearray.push(0);}
+		for(i = 0; i < wordarray.length;i++)
+		{countall(wordarray[i]);}
+		main();
+		index++;
+	}
+	
+  </script>
+<head/>
+<body>
+
+<div id = "opening">This is our data!</div>
+<div id = "report">
+</div>
+
+<button onclick = "splitupquotes()"> Check Data! </button>
+</body>
+</html>
