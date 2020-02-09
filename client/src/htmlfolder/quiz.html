@@ -1,7 +1,30 @@
 <html>
 <head>
   <title></title>
+<style>
+body{
+	background-color:lavender;
+	font-size:40px;
+	}
+	
+#question{
+	margin-top:15%;}
+	
+#question, #answerholder, #pointholder{
+	text-align:center;
+}
 
+ #answerbutton
+ {
+	font-size:40px;
+	margin-left:43%;
+ }
+
+ #pointholder
+ {
+	font-size:30px;
+ }
+</style>
   <script>	
 	var ROUND = {nameset: ["name1", "name2", "name3", "name4"], questionset: ["question1", "question2", "question3", "question4"]};
 	
@@ -71,13 +94,27 @@
 	
 	function setupquestions()
 	{
+		if(roundcount < 0)
+		{
+			changequestion();
+			changeanswers();
+		}
+		else
+		{
+		for(var i=0;i<4;i++)
+		{	var thisradio = document.getElementById("Radio" + i);
+			compareanswer(thisradio);
+			thisradio.checked = false;}
+		document.getElementById("pointholder").innerHTML = "Points: " + points;
 		changequestion();
 		changeanswers();
+		}
 	}
+	
 	
 	function compareanswer(radiobutton)
 	{
-		if(radiobutton.value.equals(ROUND[0].names))
+		if(radiobutton.value == ROUND.nameset[0] && radiobutton.checked == true)
 		{points++;}
 	}
   </script>
@@ -88,6 +125,7 @@
 <div id = "answerholder">
 </div>
 
-<button onclick = "setupquestions()"> Answer! </button>
+<button onclick = "setupquestions()" id = "answerbutton"> Answer! </button>
+<div id = "pointholder">Points: 0</div>
 </body>
 </html>
