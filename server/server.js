@@ -26,6 +26,14 @@ app.use(cors());
 // Routes
 app.use('/api/quotes', require('./routes/api/quotes'));
 
+// Production
+if (process.env.NODE_ENV === 'production') {
+	app.use(express.static(path.join(__dirname, '../client/build')));
+	app.get('*', (req, res) =>
+		res.sendFile(path.join(__dirname, '../client/build/index.html'))
+	);
+}
+
 // App
 app.listen(port, () => {
 	console.log(`app running on port ${port}`);
