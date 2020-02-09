@@ -26,7 +26,7 @@ class QuotesContainer extends Component {
 		await axios({
 			method: 'delete',
 			// url: `http://localhost:5000/api/quotes/delete/${e.target.id}`,
-			url: `/api/quotes`,
+			url: `/api/quotes/delete/${e.target.id}`,
 			data: {
 				params: e.target.id
 			}
@@ -38,8 +38,8 @@ class QuotesContainer extends Component {
 	getQuotes = async () => {
 		const Quotes = await axios({
 			method: 'get',
-			url: `http://localhost:5000/api/quotes`
-			// url: `/api/quotes`
+			// url: `http://localhost:5000/api/quotes`
+			url: `/api/quotes`
 		});
 		// console.log(Quotes.data);
 		await this.setState({ quotes: [...Quotes.data] });
