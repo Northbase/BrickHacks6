@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Sriracha&display=swap');
+
 * {
 	margin: 0;
 	padding: 0;
-	font-family: lato;
+	font-family: 'WebFont', Arial, sans-serif;
 }
 
 .censor {

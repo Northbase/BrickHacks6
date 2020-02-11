@@ -1,26 +1,15 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import './Home.css';
+import './AddBox.css';
 
 class Box extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			boxIndex: 0,
 			name: '',
 			quote: ''
 		};
 	}
-
-	handleSubmit = e => {
-		e.preventDefault();
-		console.log(this.state.name, this.state.quote);
-		if (!this.state.names.includes('') && !this.state.quotes.includes('')) {
-			this.props.boxTracker(this.state.name, this.state.quote);
-		} else {
-			console.log('error');
-		}
-	};
 
 	handleNameChange = async e => {
 		await this.setState({
@@ -28,14 +17,13 @@ class Box extends Component {
 		});
 	};
 
-	handleQuoteChange = e => {
-		this.setState({
+	handleQuoteChange = async e => {
+		await this.setState({
 			quote: e.target.value
 		});
 	};
 
 	handleSave = e => {
-		console.log(e.target);
 		if (e.target.value !== '') {
 			e.target.disabled = true;
 		}
@@ -47,7 +35,7 @@ class Box extends Component {
 	render() {
 		return (
 			<div className='formBox'>
-				<form action='' onSubmit={this.handleSubmit} autoComplete='off'>
+				<form action='' autoComplete='off'>
 					{/* name input */}
 					<input
 						type='text'
@@ -74,12 +62,12 @@ class Box extends Component {
 	}
 }
 
-class Home extends Component {
+class AddBox extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			boxIndex: 0,
 			boxes: [],
-			entries: [],
 			names: [],
 			quotes: [],
 			isDisabled: true,
@@ -87,21 +75,25 @@ class Home extends Component {
 		};
 	}
 
-	addBox = () => {
+	insertBox = () => {
 		this.setState({
-			boxes: [...this.state.boxes, <Box boxTracker={this.boxTracker} />]
+			boxIndex: this.state.boxIndex + 1,
+			boxes: [
+				...this.state.boxes,
+				<Box boxTracker={this.boxTracker} key={this.state.boxIndex} />
+			]
 		});
 	};
 
 	removeBox = () => {
-		let newBoxes = this.state.boxes.splice(-1, 1);
 		this.setState({
-			boxes: newBoxes
+			boxIndex: this.state.boxIndex - 1,
+			boxes: this.state.boxes.splice(-1, 1)
 		});
 	};
 
 	boxTracker = (name, quote) => {
-		console.log(name, quote);
+		console.log(`name: ${name}, quote: ${quote}`);
 		this.setState({
 			isDisabled: false
 		});
@@ -129,14 +121,19 @@ class Home extends Component {
 				}
 			});
 
-			// disable submit button
+			// refresh
 			this.setState({
 				isDisabled: true,
-				status: 'save'
+				status: 'save',
+				names: [],
+				quotes: []
 			});
 			this.setState({
 				boxes: []
 			});
+
+			// triggers in QuotesContainer
+			await this.props.getQuotesHandler();
 			console.log('added data successfully');
 		} catch (err) {
 			console.log('submision failed');
@@ -144,11 +141,10 @@ class Home extends Component {
 	};
 
 	render() {
-		const boxes = this.state.boxes;
 		return (
-			<div className='homeContainer'>
+			<div className='addBoxContainer'>
 				{/* Box */}
-				{[...boxes]}
+				{[...this.state.boxes]}
 				<div className='buttons'>
 					{/* Remove Button */}
 					<button onClick={this.removeBox} className='Button'>
@@ -163,7 +159,7 @@ class Home extends Component {
 						{this.state.status}
 					</button>
 					{/* Add button */}
-					<button onClick={this.addBox} className='Button'>
+					<button onClick={this.insertBox} className='Button'>
 						+
 					</button>
 				</div>
@@ -172,4 +168,4 @@ class Home extends Component {
 	}
 }
 
-export default Home;
+export default AddBox;

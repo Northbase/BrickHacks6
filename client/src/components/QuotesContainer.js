@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import axios from 'axios';
+import Hello from './Hello';
+import AddButton from './AddButton';
 
 import './style.css';
 
@@ -15,11 +17,6 @@ class QuotesContainer extends Component {
 	componentDidMount() {
 		this.getQuotes();
 	}
-
-	// componentWillUpdate() {
-	// this.setState({ quotes: [] });
-	// this.getQuotes();
-	// }
 
 	removeQuote = async e => {
 		// console.log(e.target);
@@ -41,7 +38,6 @@ class QuotesContainer extends Component {
 			// url: `http://localhost:5000/api/quotes`
 			url: `/api/quotes`
 		});
-		// console.log(Quotes.data);
 		await this.setState({ quotes: [...Quotes.data] });
 	};
 
@@ -60,16 +56,16 @@ class QuotesContainer extends Component {
 			var num = entry.names.length;
 			boxQuote_key = entry._id;
 
+			//going through index of every name
 			for (var i = 0; i < num; i++) {
-				//going through index of every name
-				console.log(entry);
 				output.push(
-					<div className='utterance'>
+					<div className='utterance' key={i}>
 						<h3 className='name'> {this.scramble(entry.names[i])}: </h3>
 						<p className='saying'> {this.scramble(entry.quotes[i])} </p>
 					</div>
 				);
 			}
+
 			return (
 				<div className='individualQuote' key={boxQuote_key}>
 					{output}
@@ -81,8 +77,13 @@ class QuotesContainer extends Component {
 			);
 		});
 
-		return <div className='quote-box'>{quotebox}</div>;
+		return (
+			<div className='quote-box'>
+				<Hello />
+				{quotebox}
+				<AddButton getQuotesHandler={this.getQuotes} />
+			</div>
+		);
 	}
 }
 export default QuotesContainer;
-//render(<QuotesContainer/>, document.getElementById('root'));

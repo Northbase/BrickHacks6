@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
-import Home from './Home';
+import AddBox from './AddBox';
 import './style.css';
 
-class QuotesContainer extends Component {
-	constructor() {
-		super();
+class AddButton extends Component {
+	constructor(props) {
+		super(props);
 		this.state = {
 			symbol: '+',
 			visible: 'hidden'
 		};
+	}
+
+	componentDidMount() {
+		this.props.getQuotesHandler();
 	}
 
 	switcharoo = () => {
@@ -31,7 +35,7 @@ class QuotesContainer extends Component {
 				<div className='add-plate' style={{ visibility: this.state.visible }}>
 					<div className='add-form'>
 						<h2>Add a Quote</h2>
-						<Home />
+						<AddBox getQuotesHandler={this.props.getQuotesHandler} />
 					</div>
 				</div>
 
@@ -42,4 +46,4 @@ class QuotesContainer extends Component {
 		);
 	}
 }
-export default QuotesContainer;
+export default AddButton;
